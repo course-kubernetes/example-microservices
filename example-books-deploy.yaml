@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-books-microservice
+  namespace: course-kubernetes
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: example-books-microservice
+  template:
+    metadata:
+      labels:
+        app: example-books-microservice
+    spec:
+      containers:
+        - name: example-books-microservice
+          image: example-books-microservice:1.1
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 3000

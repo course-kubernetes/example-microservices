@@ -1,0 +1,109 @@
+openapi: 3.0.0
+info:
+  title: API della mia biblioteca
+  version: 1.0.0
+security:
+  - BearerAuth: []
+paths:
+  /books:
+    get:
+      summary: Ottieni elenco dei libri
+      responses:
+        '200':
+          description: Risposta di successo
+        '401':
+          description: Non autorizzato - Token di accesso mancante o non valido
+    post:
+      summary: Aggiungi un nuovo libro
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookInput'
+      responses:
+        '200':
+          description: Risposta di successo
+        '401':
+          description: Non autorizzato - Token di accesso mancante o non valido
+
+  /books/{id}:
+    get:
+      summary: Ottieni dettaglio libro per ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Risposta di successo
+        '401':
+          description: Non autorizzato - Token di accesso mancante o non valido
+        '404':
+          description: Libro non trovato
+
+    put:
+      summary: Aggiorna un libro
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookInput'
+      responses:
+        '200':
+          description: Risposta di successo
+        '401':
+          description: Non autorizzato - Token di accesso mancante o non valido
+        '404':
+          description: Libro non trovato
+
+    delete:
+      summary: Cancella un libro
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Risposta di successo
+        '401':
+          description: Non autorizzato - Token di accesso mancante o non valido
+        '404':
+          description: Libro non trovato
+
+components:
+  schemas:
+    BookInput:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID del libro
+          example: 123456789
+        titolo:
+          type: string
+          description: Titolo del libro
+          example: "Il Signore degli Anelli"
+        autore:
+          type: string
+          description: Autore del libro
+          example: "J.R.R. Tolkien"
+        editore:
+          type: string
+          description: Editore del libro
+          example: "Mondadori"
+      required:
+        - titolo
+        - autore
+        - editore
