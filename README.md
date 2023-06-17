@@ -143,3 +143,35 @@ Il file del service di tipo _NodePort_ contiene tre porte che indicano rispettiv
 
 Per verificare il funzionamento possiamo accedere alla pagina `http://localhost:30001/api-docs/` del browser e vedere le API esposte.
 
+
+## Scaling
+
+Una volta esposto il nostro container su _Kubernetes_ tramite il servizio, è possibile decidere di scalare il container. Anche questa operazione può essera effettuata
+- direttamente da kubectl
+```sh
+    kubectl scale deployment example-books-microservice -n course-kubernetes --replicas=3
+```
+
+- attraverso modifiche al file yaml
+```yaml
+    ...
+    spec:
+    replicas: 1
+    ...
+```
+
+Inoltre si possono impostare delle regole per far gestire in automatico lo _scaling_ a kubernets. Per farlo però bisogna utilizzare una versione di _KUBERNETES_ che supporta l'autoscaling e bisogna attivare le metriche su KUBERNETES.
+Per esempio si può impostare lo scaling a seconda dell'utilizzo della _cpu_ o il _numero di richieste_ o la memoria utilizzata.
+
+Una volta effettuato lo _scale_ del deployment, se noi controlliamo ci accorgiamo che adesso ci sono 3 POD running:
+
+kubectl scale deployment example-books-microservice -n course-kubernetes --replicas=3 
+deployment.apps/example-books-microservice scaled.
+
+```
+...:\kubectl get pods -n course-kubernetes
+NAME                                          READY   STATUS    RESTARTS   AGE
+example-books-microservice-5d6db6cdd8-h29z9   1/1     Running   0          67m
+example-books-microservice-5d6db6cdd8-vdgzv   1/1     Running   0          6m33s
+example-books-microservice-5d6db6cdd8-vzm4t   1/1     Running   0          6m33s
+```
