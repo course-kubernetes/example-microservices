@@ -99,14 +99,14 @@ spec:
             - containerPort: 3000
 ```
 
-***apiVersion***: Indica la versione dell'API utilizzata.
-***kind***: Deve essere impostato su "Deployment"
-***metadata.name***: Il nome del deployment.
-***spec.replicas***: Il numero desiderato di repliche del pod.
-***spec.selector.matchLabels***: Il selettore
-***spec.template.spec.containers.name***: Il nome del container.
-***spec.template.spec.containers.image***: Il nome dell'immagine del container.
-***spec.template.spec.containers.ports.containerPort***: La porta del container da esporre.
+- ***apiVersion***: Indica la versione dell'API utilizzata.
+- ***kind***: Deve essere impostato su "Deployment"
+- ***metadata.name***: Il nome del deployment.
+- ***spec.replicas***: Il numero desiderato di repliche del pod.
+- ***spec.selector.matchLabels***: Il selettore
+- ***spec.template.spec.containers.name***: Il nome del container.
+- ***spec.template.spec.containers.image***: Il nome dell'immagine del container.
+- ***spec.template.spec.containers.ports.containerPort***: La porta del container da esporre.
 
 Questo file YAML definisce un deployment che crea un singolo ***`pod`*** con un container basato sull'immagine `example-books-microservice:1.1` ed espone la porta 3000 del container. 
 
