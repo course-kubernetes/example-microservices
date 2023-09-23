@@ -3,16 +3,40 @@ const app = express();
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
 const openApiDocument = YAML.load('./openapi.yaml');
+const SERVICE_PORT= process.env.SERVICE_PORT || 3000;
+const { MongoClient, ObjectId } = require("mongodb");
+
 
 // Array di esempio per i libri
 let books = [];
+// configurao MONGO
+const mongoUrl = `mongodb://${process.env.MONGO_HOST}:${process.env.MONGO_PORT}`;
+const mongoClient = new MongoClient(mongoUrl);
 
+async function getBooks() {
+  if(!mongoClient || !mongoClient.topology){
+      await mongoClient.connect();
+      db = mongoClient.db('corso');
+  }
+  var collection = db.collection('books');
+  return await collection.find().toArray();
+};
+
+// Applico i middleware
 app.use(express.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openApiDocument));
 
 // Ottieni elenco dei libri
 app.get('/books', (req, res) => {
-  res.json(books);
+  try {
+    getBooks().then(
+      (resp)=>{
+          res.status(200).json(resp);
+      }
+    );
+  }catch{
+    res.status(500).send(error);
+  }   
 });
 
 // Aggiungi un nuovo libro
@@ -60,6 +84,6 @@ app.delete('/books/:id', (req, res) => {
 });
 
 // Avvio del server
-app.listen(3000, () => {
-  console.log('Server avviato su http://localhost:3000');
+app.listen(SERVICE_PORT, () => {
+  console.log(`Server avviato su http://localhost:${SERVICE_PORT}`);
 });

@@ -52,20 +52,29 @@ docker run -d -p 3000:3000 example-books-microservice-mongo:1.0.0
 
 o distribuire l'immagine in un orchestratore come _KUBERNETES_.
 
+> NOTA: il servizio presuppone la presenza di un'instanza Mongo disponibile in localhost.
 
 ### Effettuare il deploy su _kubernetes_
 
 Per distribuire il container del progetto su _KUBERNETES_ è possibile procedere in diversi modi.
 
-Innanzi tutto è possibile 
-- farlo direttamente da terminale se ci si sta appoggiando ad un REGISTRY DOCKER
+Innanzi tutto creiamo un servizio su kubernetes che punta all'istanza di MongoDB locale.
+
+
+```sh
+  kubectl apply -f local-mongo-service.yaml
+```
+
+
+Creare il DEPLOY 
+- ***direttamente da terminale*** se ci si sta appoggiando ad un REGISTRY DOCKER
 ```sh
     kubectl run example-books-deployment --image=lucasalzone/example-books-microservice-mongo:1.0.0
 ```
 
 > NOTE: [Documentazione Kubectl](https://kubernetes.io/docs/reference/kubectl/)
 
-- creare i file di configurazione YAML per il deploy ed applicarlo su kubernetes
+- con ***file di configurazione YAML***
 ```sh
     kubectl apply -f example-books-deploy.yaml
 ```

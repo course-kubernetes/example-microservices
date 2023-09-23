@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-configmap
+data:
+  MONGO_HOST: local-mongo-service
+  MONGO_PORT: "27017"
+  MONGO_USER: username
+  MONGO_PASSWORD: password
