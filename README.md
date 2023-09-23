@@ -41,13 +41,13 @@ Una volta scaricato il progetto è possibile eseguirlo in locale tramite il coma
 ed anche generare l'immagine ***`docker`*** del progetto
 
 ```sh
-docker build -t example-books-microservice:1.1 .
+docker build -t example-books-microservice:1.0.0 .
 ```
 
 In questo modo viene generato il container del progetto che è possibile eseguire direttamente
 
 ```sh
-docker run -p 3000:3000 example-books-microservice:1.1
+docker run -d -p 3000:3000 example-books-microservice:1.0.0
 ```
 
 o distribuire l'immagine in un orchestratore come _KUBERNETES_.

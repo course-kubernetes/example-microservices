@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: example-books-microservice
-          image: example-books-microservice:1.1
+          image: example-books-microservice:1.0.0
           imagePullPolicy: Never
           resources:
             limits:
