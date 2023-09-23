@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: example-books-microservice
+  name: example-books-service-mongo
   namespace: course-kubernetes
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: example-books-microservice
+      app: example-books-service-mongo
   template:
     metadata:
       labels:
-        app: example-books-microservice
+        app: example-books-service-mongo
     spec:
       containers:
-        - name: example-books-microservice
-          image: example-books-microservice:1.0.0
+        - name: example-books-microservice-mongo
+          image: example-books-microservice-mongo:1.0.0
           imagePullPolicy: Never
           resources:
             limits:

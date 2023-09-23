@@ -41,13 +41,13 @@ Una volta scaricato il progetto è possibile eseguirlo in locale tramite il coma
 ed anche generare l'immagine ***`docker`*** del progetto
 
 ```sh
-docker build -t example-books-microservice:1.0.0 .
+docker build -t example-books-microservice-mongo:1.0.0 .
 ```
 
 In questo modo viene generato il container del progetto che è possibile eseguire direttamente
 
 ```sh
-docker run -d -p 3000:3000 example-books-microservice:1.0.0
+docker run -d -p 3000:3000 example-books-microservice-mongo:1.0.0
 ```
 
 o distribuire l'immagine in un orchestratore come _KUBERNETES_.
@@ -60,7 +60,7 @@ Per distribuire il container del progetto su _KUBERNETES_ è possibile procedere
 Innanzi tutto è possibile 
 - farlo direttamente da terminale se ci si sta appoggiando ad un REGISTRY DOCKER
 ```sh
-    kubectl run example-books-deployment --image=lucasalzone/example-books-microservice:1.1.0
+    kubectl run example-books-deployment --image=lucasalzone/example-books-microservice-mongo:1.0.0
 ```
 
 > NOTE: [Documentazione Kubectl](https://kubernetes.io/docs/reference/kubectl/)
@@ -79,21 +79,21 @@ Nel secondo caso è possibile usare l'opzione  `imagePullPolicy: Never` per dire
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: example-books-microservice
+  name: example-books-microservice-mongo
   namespace: course-kubernetes
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: example-books-microservice
+      app: example-books-service-mongo
   template:
     metadata:
       labels:
-        app: example-books-microservice
+        app: example-books-service-mongo
     spec:
       containers:
-        - name: example-books-microservice
-          image: example-books-microservice:1.1
+        - name: example-books-microservice-mongo
+          image: example-books-microservice-mongo:1.0.0
           imagePullPolicy: Never
           ports:
             - containerPort: 3000
@@ -108,7 +108,7 @@ spec:
 - ***spec.template.spec.containers.image***: Il nome dell'immagine del container.
 - ***spec.template.spec.containers.ports.containerPort***: La porta del container da esporre.
 
-Questo file YAML definisce un deployment che crea un singolo ***`pod`*** con un container basato sull'immagine `example-books-microservice:1.1` ed espone la porta 3000 del container. 
+Questo file YAML definisce un deployment che crea un singolo ***`pod`*** con un container basato sull'immagine `example-books-service-mongo:1.0.0` ed espone la porta 3000 del container. 
 
 
 ### Creare il servizio su _kubernetes_
