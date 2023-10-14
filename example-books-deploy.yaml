@@ -15,8 +15,11 @@ spec:
     spec:
       containers:
         - name: example-books-microservice-mongo
-          image: example-books-microservice-mongo:1.0.0
+          image: example-books-microservice-mongo:1.2
           imagePullPolicy: Never
+          env:
+            - name: MONGO_HOST
+              value: host.docker.internal
           resources:
             limits:
               cpu: "1"

@@ -66,6 +66,7 @@ Innanzi tutto creiamo un servizio su kubernetes che punta all'istanza di MongoDB
 ```
 
 
+
 Creare il DEPLOY 
 - ***direttamente da terminale*** se ci si sta appoggiando ad un REGISTRY DOCKER
 ```sh

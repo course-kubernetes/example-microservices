@@ -1,0 +1,1 @@
+docker build -t example-books-microservice-mongo:1.2 .

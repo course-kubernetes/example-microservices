@@ -1,1 +1,0 @@
-docker build -t example-books-microservice:1.1 .

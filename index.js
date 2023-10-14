@@ -4,13 +4,15 @@ const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
 const openApiDocument = YAML.load('./openapi.yaml');
 const SERVICE_PORT= process.env.SERVICE_PORT || 3000;
-const { MongoClient, ObjectId } = require("mongodb");
+const MONGO_HOST= process.env.MONGO_HOST || localhost;
+const MONGO_PORT= process.env.MONGO_PORT || 27017;
+const { MongoClient, ObjectId} = require("mongodb");
 
 
 // Array di esempio per i libri
 let books = [];
-// configurao MONGO
-const mongoUrl = `mongodb://${process.env.MONGO_HOST}:${process.env.MONGO_PORT}`;
+// configurazione MONGO
+const mongoUrl = `mongodb://${MONGO_HOST}:${MONGO_PORT}`;
 const mongoClient = new MongoClient(mongoUrl);
 
 async function getBooks() {
@@ -86,4 +88,5 @@ app.delete('/books/:id', (req, res) => {
 // Avvio del server
 app.listen(SERVICE_PORT, () => {
   console.log(`Server avviato su http://localhost:${SERVICE_PORT}`);
+  console.log(`MONGO settings: ${MONGO_HOST} - ${MONGO_PORT}` )
 });

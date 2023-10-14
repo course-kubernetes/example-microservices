@@ -1,0 +1,1 @@
+kubectl rollout restart deployment/example-books-service-mongo --strategy=RollingUpdate
